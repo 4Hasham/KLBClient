@@ -1,7 +1,7 @@
 import './PersonalSignUp.css';
 import React, {Component} from 'react';
 import { FormControl, FormLabel, Radio, RadioGroup, FormControlLabel } from '@material-ui/core'
-import { Button, Container, TextField } from '@material-ui/core';
+import { Container, TextField } from '@material-ui/core';
 import { validateName, validateDate } from '../utils/Validation';
 
 export class PersonalSignUp extends Component {

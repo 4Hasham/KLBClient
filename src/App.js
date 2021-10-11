@@ -1,11 +1,11 @@
 import React from 'react';
 //import { SignUp } from './SignUp/SignUp';
-import { Map } from './Business/loc/Map';
+import { TruckReg } from './Business/reg/TruckReg';
 import './App.css';
 
 function App() {
   return (
-      <Map />
+      <TruckReg />
   );
 }
 

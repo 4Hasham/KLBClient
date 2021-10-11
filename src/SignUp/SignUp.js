@@ -45,7 +45,7 @@ export class SignUp extends Component {
   }  
 
   signUpButton() {
-    if(this.state.accountCompleted == 0 || this.state.personalCompleted == 0)
+    if(this.state.accountCompleted === 0 || this.state.personalCompleted === 0)
       return {
         disabled: 'true'
       };
@@ -76,7 +76,7 @@ export class SignUp extends Component {
 
 
   changeTab() {
-    if(this.state.value == 0)
+    if(this.state.value === 0)
       this.setState({value: 1});
     else
       this.setState({value: 0});

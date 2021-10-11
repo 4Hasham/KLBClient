@@ -6,6 +6,8 @@ export class Address extends Component {
     constructor(props) {
         super(props);
         this.clearSearchBox = this.clearSearchBox.bind(this);
+        this.focusout = this.focusout.bind(this);
+
     }
 
     componentDidMount({ map, mapApi, address } = this.props) {
@@ -47,6 +49,11 @@ export class Address extends Component {
         this.props.bar(this.props.identity);
     }
 
+    focusout = () => {
+        console.log("Empty " + this.props.identity);
+        if(this.searchInput.value.trim().length === 0)
+            this.props.isempty(this.props.identity);
+    }
     render() {
         return (
             <input
@@ -56,6 +63,7 @@ export class Address extends Component {
                 }}
                 type="text"
                 onFocus={this.clearSearchBox}
+                onKeyUp={this.focusout}
                 placeholder="Enter a location"
             />
         );

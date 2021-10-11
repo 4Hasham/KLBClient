@@ -49,33 +49,59 @@ export class AdminSignUp extends Component {
 
   _validatePhone() {
     if(!validatePhone(this.state.phone)) {
-      this.state.errors.phone = "Please enter a valid phone number.";
+      this.setState({
+        errors: {
+          phone: "Please enter a valid phone number."
+        }
+      });
       return false;
     }
     else {
-      this.state.errors.phone = "";
+      this.setState({
+        errors: 
+        {
+          phone: ""
+        }
+      });
       return true;
     }
   }
 
   _validateEmail() {
     if(!validateEmail(this.state.email)) {
-      this.state.errors.email = "Please enter a valid email address.";
+      this.setState({
+        errors: {
+          email: "Please enter a valid email address."
+        }
+      });
       return false;
     }
     else {
-      this.state.errors.email = "";
+      this.setState({
+        errors: {
+          email: ""
+        }
+      });
       return true;
     }
   }
 
   _validatePass() {
     if(!validatePassword(this.state.pass)) {
-      this.state.errors.pass = "You password must comprise of at least 7 characters, and it must have at least one number and special character.";
+      this.setState({
+        errors:
+        {
+          pass: "You password must comprise of at least 7 characters, and it must have at least one number and special character."
+        }
+      });
       return false;
     }
     else {
-      this.state.errors.pass = "";
+      this.setState({
+        errors: {
+          pass: ""
+        }
+      });
       return true;
     }
   }
@@ -101,7 +127,7 @@ export class AdminSignUp extends Component {
   }
 
   errorAttr(field) {
-    if(this.state.errors[field] != "")
+    if(this.state.errors[field] !== "")
       return {
         error: `true`,
         helperText: this.state.errors[field]
@@ -128,10 +154,10 @@ export class AdminSignUp extends Component {
     let total = Object.keys(this.state).length;
     let field_arr = [];
     for(let s in this.state)
-      if(this.state[s] != '')
+      if(this.state[s] !== '')
         field_arr.push(s);
 
-    if(field_arr.length == total && this.checkBool(field_arr))
+    if(field_arr.length === total && this.checkBool(field_arr))
       return true;
     else
       return false;
@@ -139,18 +165,18 @@ export class AdminSignUp extends Component {
 
   render() {
     return (
-        <Container>
-          <br />
-          <h2>Admin Sign Up Form</h2>
-          <form id="custForm" name="custForm" className="custForm" noValidate autoComplete="false">
-            <TextField {... this.errorAttr('phone')} type="tel" name="phone" id="standard-basic" label="Phone" value={this.state.phone} onChange={this.setValues} />
-            <br /><br />
-            <TextField {... this.errorAttr('email')} type="text" name="email" id="standard-basic" label="E-mail" value={this.state.email} onChange={this.setValues} />
-            <br /><br />
-            <TextField {... this.errorAttr('pass')} type="password" name="pass" id="standard-basic" label="Password" value={this.state.pass} onChange={this.setValues} />
-            <br /><br />
-          </form><br /><br />
-        </Container>
+      <Container>
+        <br />
+        <h2>Admin Sign Up Form</h2>
+        <form id="custForm" name="custForm" className="custForm" noValidate autoComplete="false">
+          <TextField {... this.errorAttr('phone')} type="tel" name="phone" id="standard-basic" label="Phone" value={this.state.phone} onChange={this.setValues} />
+          <br /><br />
+          <TextField {... this.errorAttr('email')} type="text" name="email" id="standard-basic" label="E-mail" value={this.state.email} onChange={this.setValues} />
+          <br /><br />
+          <TextField {... this.errorAttr('pass')} type="password" name="pass" id="standard-basic" label="Password" value={this.state.pass} onChange={this.setValues} />
+          <br /><br />
+        </form><br /><br />
+      </Container>
     )
   }
 }

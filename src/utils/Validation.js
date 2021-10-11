@@ -16,11 +16,11 @@ export function isNumeric(s) {
 
 export function containsSpace(s) {
     var str = s.trim();
-    if(str.length == 0)
+    if(str.length === 0)
         return false;
 
     for(let i = 0; i < str.length; ++i) 
-        if(str.charCodeAt(i) == 32)
+        if(str.charCodeAt(i) === 32)
             return true;
     return false;
 }
@@ -35,7 +35,7 @@ export function isAlphaNumeric(s) {
 
 export function validateName(s) {
     var str = s.trim();
-    if(str.length == 0)
+    if(str.length === 0)
         return 1;
     if(str.length < 2 || str.length > 14)
         return -1; //not within valid range of string length
@@ -47,7 +47,7 @@ export function validateName(s) {
 
 export function validateEmail(s) {
     var str = s.trim();
-    if(str.length == 0)
+    if(str.length === 0)
         return false;
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(str))
         return true;
@@ -65,7 +65,7 @@ export function validatePhone(s) {
 }
 
 export function validateDate(s) {
-    if(s.length == 0)
+    if(s.length === 0)
         return false;
     return true;
 }

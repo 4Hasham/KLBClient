@@ -121,7 +121,7 @@ export class PersonalSignUp extends Component {
   }
 
   errorAttr(field) {
-    if(this.state.errors[field] != "")
+    if(this.state.errors[field] !== "")
       return {
         error: `true`,
         helperText: this.state.errors[field]
@@ -148,10 +148,10 @@ export class PersonalSignUp extends Component {
     let total = Object.keys(this.state).length;
     let field_arr = [];
     for(let s in this.state)
-      if(this.state[s] != '')
+      if(this.state[s] !== '')
         field_arr.push(s);
 
-    if(field_arr.length == total && this.checkBool(field_arr))
+    if(field_arr.length === total && this.checkBool(field_arr))
       return true;
     else
       return false;

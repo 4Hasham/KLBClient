@@ -49,7 +49,7 @@ export function validateEmail(s) {
     var str = s.trim();
     if(str.length === 0)
         return false;
-    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(str))
+    if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(str))
         return true;
     return false;
 }

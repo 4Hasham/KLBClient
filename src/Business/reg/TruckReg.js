@@ -10,9 +10,6 @@ export class TruckReg extends Component {
         super();
 
         this.state = {
-            meta: {
-                driverID: '1',
-            },
             form: {
                 numberPlate: '',
                 truckType: '',
@@ -132,7 +129,7 @@ export class TruckReg extends Component {
                 <br />
                 <TextField name="capacity" value={this.state.form.capacity} onBlur={this.buttonAttr} onChange={this.updateState} label="Capacity in kilograms (kg)" /><br />
                 <TextField name="length" value={this.state.form['length']} onBlur={this.buttonAttr} onChange={this.updateState} label="Length of container in feet" />
-                <br />
+                <br /><br />
                 <Button {...this.buttonAttr()} variant="contained" color="primary">Next</Button>
             </div>
         );

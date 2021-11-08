@@ -138,6 +138,9 @@ export class Route extends Component {
                         </td>
                     </tr>
                     <tr>
+                        {/* assign truck */}
+                    </tr>
+                    <tr>
                         <td colSpan="2">
                             <Button {...this.buttonAttr()} variant="contained" color="primary">Next</Button>
                         </td>

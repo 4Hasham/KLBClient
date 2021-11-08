@@ -42,56 +42,76 @@ export class PersonalSignUp extends Component {
     this.setState({[name]: value}, () => {
       this.validateForm(name);
       console.log(this.state);
-      if(this.checkOnlyUnempty())
+      if(this.checkOnlyUnempty()) {
         this.props.setCompleted(1);
-      else
+        this.props.setData(this.state);
+      }
+      else {
         this.props.setCompleted(0);
-      console.log("PERSONAL DATA", this.props.sendData);
+      }
     });
   }
 
   validateFname() {
-    if(validateName(this.state.fname) < 0)
-      this.state.errors.fname = "First name cannot be greater than 14 characters and smaller than 2 characters.";
-    else if(validateName(this.state.fname) > 0)
-      this.state.errors.fname = "Enter one name.";
+    var s = {...this.state};
+    if(validateName(this.state.fname) < 0) {
+      s.errors.fname = "First name cannot be greater than 14 characters and smaller than 2 characters.";
+      this.setState(s);
+    }
+    else if(validateName(this.state.fname) > 0) {
+      s.errors.fname = "Enter one name.";
+      this.setState(s);
+    }
     else {
-      this.state.errors.fname = "";
+      s.errors.fname = "";
+      this.setState(s);
       return true;
     }
     return false;
   }
 
   validateLname() {
-    if(validateName(this.state.lname) < 0)
-      this.state.errors.lname = "Last name cannot be greater than 14 characters and smaller than 2 characters.";
-    else if(validateName(this.state.lname) > 0)
-      this.state.errors.lname = "Enter one name.";
+    var s = {...this.state};
+    if(validateName(this.state.lname) < 0) {
+      s.errors.lname = "Last name cannot be greater than 14 characters and smaller than 2 characters.";
+      this.setState(s);
+    }
+    else if(validateName(this.state.lname) > 0) {
+      s.errors.lname = "Enter one name.";
+      this.setState(s);
+    }
     else {
-      this.state.errors.lname = "";
+      s.errors.lname = "";
+      this.setState(s);
       return true;
     }
     return false;
   }
 
   validateGender() {
-    if(validateName(this.state.gender) != 0) {
-      this.state.errors.gender = "Please select your gender.";
+    var s = {...this.state};
+    if(validateName(this.state.gender) !== 0) {
+      s.errors.gender = "Please select your gender.";
+      this.setState(s);
       return false;
     }
     else {
-      this.state.errors.gender = "";
+      s.errors.gender = "";
+      this.setState(s);
       return true;
     }
   }
 
   validateDOB() {
+    var s = {...this.state};
     if(!validateDate(this.state.dob)) {
-      this.state.errors.dob = "Not a valid date, please select a valid date with the format mm-dd-yyyy.";
+      s.errors.dob = "Not a valid date, please select a valid date with the format mm-dd-yyyy.";
+      this.setState(s);
       return false;
     }
     else {
-      this.state.errors.dob = "";
+      s.errors.dob = "";
+      this.setState(s);
       return true;
     }
   }

@@ -43,39 +43,47 @@ export class CustomerInfoSignUp extends Component {
         this.props.setCompleted(1);
       else
         this.props.setCompleted(0);
-      console.log("CUSTOMER DATA", this.props.sendData);
     });
   }
 
   _validatePhone() {
+    var s = {...this.state};
     if(!validatePhone(this.state.phone)) {
-      this.state.errors.phone = "Please enter a valid phone number.";
+      s.errors.phone = "Please enter a valid phone number.";
+      this.setState(s);
       return false;
     }
     else {
-      this.state.errors.phone = "";
+      s.errors.phone = "";
+      this.setState(s);
       return true;
     }
   }
 
   _validateEmail() {
+    var s = {...this.state};
     if(!validateEmail(this.state.email)) {
-      this.state.errors.email = "Please enter a valid email address.";
+      s.errors.email = "Please enter a valid email address.";
+      this.setState(s);
       return false;
     }
     else {
-      this.state.errors.email = "";
+      s.errors.email = "";
+      this.setState(s);
       return true;
     }
   }
 
   _validatePass() {
+    var s = {...this.state};
     if(!validatePassword(this.state.pass)) {
-      this.state.errors.pass = "You password must comprise of at least 7 characters, and it must have at least one number and special character.";
+      s.errors.pass = "You password must comprise of at least 7 characters, and it must have at least one number and special character.";
+      this.setState(s);
       return false;
     }
     else {
-      this.state.errors.pass = "";
+      s.errors.pass = "";
+      this.setState(s);
       return true;
     }
   }
@@ -101,7 +109,7 @@ export class CustomerInfoSignUp extends Component {
   }
 
   errorAttr(field) {
-    if(this.state.errors[field] != "")
+    if(this.state.errors[field] !== "")
       return {
         error: `true`,
         helperText: this.state.errors[field]
@@ -128,10 +136,10 @@ export class CustomerInfoSignUp extends Component {
     let total = Object.keys(this.state).length;
     let field_arr = [];
     for(let s in this.state)
-      if(this.state[s] != '')
+      if(this.state[s] !== '')
         field_arr.push(s);
 
-    if(field_arr.length == total && this.checkBool(field_arr))
+    if(field_arr.length === total && this.checkBool(field_arr))
       return true;
     else
       return false;

@@ -1,7 +1,7 @@
 import './DriverInfoSignUp.css';
 import React, {Component} from 'react';
 import { Container, TextField } from '@material-ui/core';
-import { validatePhone, validateEmail, validatePassword } from '../utils/Validation';
+import { validatePhone, validatePassword } from '../utils/Validation';
 export class DriverInfoSignUp extends Component {
 
   constructor() {
@@ -9,11 +9,9 @@ export class DriverInfoSignUp extends Component {
 
     this.state = {
       phone: "",
-      email: "",
       pass: "",
       errors: {
         phone: "",
-        email: "",
         pass: "",
       }
     };
@@ -21,14 +19,16 @@ export class DriverInfoSignUp extends Component {
     this.setValues = this.setValues.bind(this);
   }
 
-  setValues(e) {
-
+  componentWillMount() {
     //in case there are previous values coming from parent
 
     let prevData = this.props.sendData;
     for(let a in prevData) {
       this.setState({[a]: prevData[a]});
-    }
+    }    
+  }
+
+  setValues(e) {
 
     let target = e.target;
     let value = target.value;
@@ -45,34 +45,29 @@ export class DriverInfoSignUp extends Component {
   }
 
   _validatePhone() {
+    var s = {...this.state};
     if(!validatePhone(this.state.phone)) {
-      this.state.errors.phone = "Please enter a valid phone number.";
+      s.errors.phone = "Please enter a valid phone number.";
+      this.setState(s);
       return false;
     }
     else {
-      this.state.errors.phone = "";
-      return true;
-    }
-  }
-
-  _validateEmail() {
-    if(!validateEmail(this.state.email)) {
-      this.state.errors.email = "Please enter a valid email address.";
-      return false;
-    }
-    else {
-      this.state.errors.email = "";
+      s.errors.phone = "";
+      this.setState(s);
       return true;
     }
   }
 
   _validatePass() {
+    var s = {...this.state};
     if(!validatePassword(this.state.pass)) {
-      this.state.errors.pass = "You password must comprise of at least 5 characters, and it must have at least one number and special character.";
+      s.errors.pass = "You password must comprise of at least 5 characters, and it must have at least one number and special character.";
+      this.setState(s);
       return false;
     }
     else {
-      this.state.errors.pass = "";
+      s.errors.pass = "";
+      this.setState(s);
       return true;
     }
   }
@@ -82,23 +77,19 @@ export class DriverInfoSignUp extends Component {
       case 'phone':
         this._validatePhone();
       break;
-      case 'email':
-        this._validateEmail();
-      break;
       case 'pass':
         this._validatePass();
       break;
       default:
         return (
           this._validatePhone() &&
-          this._validateEmail() &&
           this._validatePass()
         );
     }
   }
 
   errorAttr(field) {
-    if(this.state.errors[field] != "")
+    if(this.state.errors[field] !== "")
       return {
         error: `true`,
         helperText: this.state.errors[field]
@@ -117,10 +108,10 @@ export class DriverInfoSignUp extends Component {
     let total = Object.keys(this.state).length;
     let field_arr = [];
     for(let s in this.state)
-      if(this.state[s] != '')
+      if(this.state[s] !== '')
         field_arr.push(s);
 
-    if(field_arr.length == total && this.checkBool(field_arr))
+    if(field_arr.length === total && this.checkBool(field_arr))
       return true;
     else
       return false;

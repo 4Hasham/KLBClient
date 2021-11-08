@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { AppBar, Tabs, Tab, Button } from '@material-ui/core';
 import { TabPanel } from '../ui/TabPanel';
 import { PersonalSignUp } from './PersonalSignUp';
-import { CustomerInfoSignUp } from './CustomerInfoSignUp';
+//import { CustomerInfoSignUp } from './CustomerInfoSignUp';
 import { DriverInfoSignUp } from './DriverInfoSignUp';
 
 export class SignUp extends Component {
@@ -25,7 +25,7 @@ export class SignUp extends Component {
     this.changeTab = this.changeTab.bind(this);
   }
 
-  sendInfo() {
+  sendInfo = () => {
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -34,7 +34,7 @@ export class SignUp extends Component {
         account: this.state.accountData
       })
     };
-    fetch("api/signUp", requestOptions);
+    fetch("drivers/signup", requestOptions);
   }
 
   a11yProps(index) {
@@ -95,13 +95,14 @@ export class SignUp extends Component {
           <PersonalSignUp setCompleted={this.setCompletedPersonal} sendData={this.state.personalData} setData={this.setDataPersonal} />
         </TabPanel>
         <TabPanel value={this.state.value} index={1}>
-          <CustomerInfoSignUp setCompleted={this.setCompletedAccount} sendData={this.state.accountData} setData={this.setDataAccount} />
+          {/* <CustomerInfoSignUp setCompleted={this.setCompletedAccount} sendData={this.state.accountData} setData={this.setDataAccount} /> */}
+          <DriverInfoSignUp setCompleted={this.setCompletedAccount} sendData={this.state.accountData} setData={this.setDataAccount} />
           {/* <DriverInfoSignUp /> */}
         </TabPanel>
         <br /><br />
         <div id="button_group">
           <Button variant="contained" color="primary" onClick={this.changeTab}>Next</Button>&nbsp;
-          <Button variant="contained" color="primary" {...this.signUpButton()} onClick={this.sendInfo()} >Save</Button>
+          <Button variant="contained" color="primary" {...this.signUpButton()} onClick={this.sendInfo} >Save</Button>
         </div>
       </div>
     );

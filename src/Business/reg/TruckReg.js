@@ -23,6 +23,17 @@ export class TruckReg extends Component {
         };
     }
 
+    sendInfo = () => {
+        let d = {...this.state.form}
+        d['driverID'] = localStorage.getItem('drivID');
+        const requestOptions = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(d)
+        };
+        fetch("register/truck", requestOptions);
+    }
+
     async componentDidMount() {
         this.setState({
             data: {
@@ -44,7 +55,6 @@ export class TruckReg extends Component {
             var dumb1 = {...this.state};
             dumb1.form[t.name] = t.value;
             this.setState(dumb1, () => {
-                console.log(this.state);
             });
         }
     }
@@ -76,7 +86,6 @@ export class TruckReg extends Component {
 
     isEmptyState = () => {
         for(let c in this.state.form) {
-            console.log(this.state.form[c]);
             if(this.state.form[c].trim() === '') {
                 return true;
             }
@@ -130,7 +139,7 @@ export class TruckReg extends Component {
                 <TextField name="capacity" value={this.state.form.capacity} onBlur={this.buttonAttr} onChange={this.updateState} label="Capacity in kilograms (kg)" /><br />
                 <TextField name="length" value={this.state.form['length']} onBlur={this.buttonAttr} onChange={this.updateState} label="Length of container in feet" />
                 <br /><br />
-                <Button {...this.buttonAttr()} variant="contained" color="primary">Next</Button>
+                <Button {...this.buttonAttr()} variant="contained" onClick={this.sendInfo} color="primary">Next</Button>
             </div>
         );
     }

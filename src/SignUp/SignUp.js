@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import { AppBar, Tabs, Tab, Button } from '@material-ui/core';
 import { TabPanel } from '../ui/TabPanel';
 import { PersonalSignUp } from './PersonalSignUp';
-//import { CustomerInfoSignUp } from './CustomerInfoSignUp';
-import { DriverInfoSignUp } from './DriverInfoSignUp';
+import { CustomerInfoSignUp } from './CustomerInfoSignUp';
+//import { DriverInfoSignUp } from './DriverInfoSignUp';
 
 export class SignUp extends Component {
 
@@ -34,7 +34,7 @@ export class SignUp extends Component {
         account: this.state.accountData
       })
     };
-    fetch("drivers/signup", requestOptions);
+    fetch("users/signup", requestOptions);
   }
 
   a11yProps(index) {
@@ -95,9 +95,8 @@ export class SignUp extends Component {
           <PersonalSignUp setCompleted={this.setCompletedPersonal} sendData={this.state.personalData} setData={this.setDataPersonal} />
         </TabPanel>
         <TabPanel value={this.state.value} index={1}>
-          {/* <CustomerInfoSignUp setCompleted={this.setCompletedAccount} sendData={this.state.accountData} setData={this.setDataAccount} /> */}
-          <DriverInfoSignUp setCompleted={this.setCompletedAccount} sendData={this.state.accountData} setData={this.setDataAccount} />
-          {/* <DriverInfoSignUp /> */}
+          <CustomerInfoSignUp setCompleted={this.setCompletedAccount} sendData={this.state.accountData} setData={this.setDataAccount} />
+          {/* <DriverInfoSignUp setCompleted={this.setCompletedAccount} sendData={this.state.accountData} setData={this.setDataAccount} /> */}
         </TabPanel>
         <br /><br />
         <div id="button_group">

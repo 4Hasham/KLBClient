@@ -63,6 +63,15 @@ export class Truck extends Component {
         }
     }
 
+    copyLoad = (arr) => {
+        var dumb = {...this.state};
+        dumb.form['loads'] = [...arr];
+        this.setState(dumb, async() => {
+            console.log(this.state.form.loads);
+            this.buttonAttr();
+        });
+    }
+
     getTrucks = () => {
         return this.state.data.trucks;
     }
@@ -74,7 +83,10 @@ export class Truck extends Component {
                 if(this.state.form[c].trim() === '')
                     return true;
         }
-        return false;
+        if(this.state.form['loads'].length !== 0)
+            return false;
+        else
+            return true;
     }
     
     buttonAttr = () => {
@@ -86,7 +98,7 @@ export class Truck extends Component {
     render() {
         return (
             <div id="main">
-                <Load />
+                <Load getLoad={this.copyLoad} />
                 <br /><br />
                 <Autocomplete
                     id="truck"

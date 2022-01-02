@@ -21,6 +21,20 @@ export class AdminLogin extends Component {
         };
     }
 
+    sendInfo = async() => {
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(this.state.form)
+      };
+      let str = new Promise((resolve, reject) => {
+        fetch("admin/login", requestOptions).then((res) => {
+          resolve(res.json());
+        });
+      });
+      console.log(await str);
+    }  
+
     updateState = (e) => {
         var t = e.target;
         var d = {...this.state};
@@ -128,7 +142,7 @@ export class AdminLogin extends Component {
                 <br />
                 <TextField {... this.errorAttr('pass')} name="pass" value={this.state.form.pass} label="Password" type="password" onChange={this.updateState} /><br />
                 <br />
-                <Button variant="contained" color="primary">Login</Button>
+                <Button variant="contained" onClick={this.sendInfo} color="primary">Login</Button>
             </div>
         );
     }

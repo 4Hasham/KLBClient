@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { Button, TextField } from '@material-ui/core';
+import { Button, TextField, Select, OutlinedInput, InputLabel, Chip, Box, MenuItem, FormControl } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import './Route.css';
 import * as cities from '../../utils/cities.json';
@@ -9,57 +9,54 @@ var hours = [
     '13' , '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24'
 ];
 var mins = ['00', '15', '30', '45'];
+var days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
 export class Route extends Component {
     constructor() {
         super();
         this.state = {
-            pickup: '',
-            destination: '',
-            timeH: '',
-            timeM: ''
+            form: {
+                pickup: '',
+                destination: '',
+                days: [],
+                timeH: '',
+                timeM: ''
+            }
         };
+    }
+
+    sendInfo = () => {
+        var e = {...this.state.form};
+        e["admin"] = localStorage.getItem("admin");
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(e)
+        };
+        fetch("register/route", requestOptions);
     }
 
     updateState = (e) => {
         const {name, value} = e.target;
-        let prev = this.state[name];
-        let cont = false;
-        if(value.trim().length === 0) {
-            this.setState({
-                [name]: ''
-            }, () => {
-                this.buttonAttr();
-            });
-            return;
-        }
-        if(name === "pickup" || name === "destination") {
-            cont = cities.default.cities.includes(value.trim());
-        }
-        else if(name === "timeH") {
-            cont = hours.includes(value.trim());
-        }
-        else if(name === "timeM") {
-            cont = mins.includes(value.trim());
-        }
-        if(cont === true) {
-            this.setState({
-                [name]: value
-            }, () => {
-                this.buttonAttr();
-            });
-        }
-        else {
-            this.setState({
-                [name]: prev
-            }, () => {
-                this.buttonAttr();
-            });
-        }
-        return;
+        let o = {...this.state};
+        o["form"][name] = value;
+        this.setState(o, () => {
+            this.buttonAttr();
+            console.log(this.state);
+        });
     }
 
     buttonAttr = () => {
-        if(this.state.pickup.trim().length === 0 || this.state.destination.trim().length === 0 || this.state.timeH.trim().length === 0 || this.state.timeM.trim().length === 0)
+        if(this.state.form.pickup.trim().length === 0 || this.state.form.destination.trim().length === 0 || this.state.form.timeH.trim().length === 0 || this.state.form.timeM.trim().length === 0 || this.state.form.days.length === 0)
             return {
                 disabled: true
             };
@@ -78,7 +75,9 @@ export class Route extends Component {
             cont = mins.includes(value.trim());
         }
         if(cont) {
-            this.setState({[fieldName]: value}, () => {
+            let o = {...this.state};
+            o["form"][fieldName] = value;
+            this.setState(o, () => {
                 this.buttonAttr();
             });
         }
@@ -138,11 +137,36 @@ export class Route extends Component {
                         </td>
                     </tr>
                     <tr>
-                        {/* assign truck */}
+                        <td colSpan="2">
+                            <FormControl style={{ m: 1, width: 300 }}>
+                                <InputLabel id="days-label">Active Days</InputLabel>
+                                <Select multiple={true}
+                                labelId="days-label"
+                                id="days"
+                                name="days"
+                                value={this.state.form.days}
+                                onChange={this.updateState}
+                                input={<OutlinedInput id="days" name="days" />}
+                                renderValue={(selected) => (
+                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                                    {selected.map((value) => (
+                                        <Chip key={value} label={value} />
+                                    ))}
+                                    </Box>
+                                )}
+                                MenuProps={MenuProps}>
+                                    {days.map((day) => (
+                                        <MenuItem key={day} value={day}>
+                                        {day}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </td>
                     </tr>
                     <tr>
                         <td colSpan="2">
-                            <Button {...this.buttonAttr()} variant="contained" color="primary">Next</Button>
+                            <Button {...this.buttonAttr()} variant="contained" onClick={this.sendInfo} color="primary">Next</Button>
                         </td>
                     </tr>
                     </tbody>

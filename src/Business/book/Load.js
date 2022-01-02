@@ -58,6 +58,7 @@ export class Load extends Component {
             if(dumb.form.load.filter(({label}) => label === value).length === 0)
                 dumb.form[fieldName].push({key: this.getLoads().find(({ label }) => label === value).key, label: value});
             this.setState(dumb, async() => {
+                this.props.getLoad(this.state.form.load);
                 this.buttonAttr();
             });
         }
@@ -99,6 +100,9 @@ export class Load extends Component {
             form: {
                 load: val
             }
+        }, () => {
+            this.props.getLoad(this.state.form.load);
+            console.log("From laod: fired")
         });
     }
 
@@ -108,6 +112,8 @@ export class Load extends Component {
             form: {
                 load: d.form.load.filter((el) => el.key !== chipToDelete.key)
             }
+        }, () => {
+            this.props.getLoad(this.state.form.load);
         });
     };    
 
@@ -144,7 +150,7 @@ export class Load extends Component {
                     onSelect={(event) => this.handleTag(event, 'load')}
                     options={this.getLoads()}
                     getOptionLabel={(option) => option.label.toString()}
-                    getOptionSelected={(option, value) => option === value}
+                    getOptionSelected={(option, value) => value.label.toString() === option.label.toString()}
                     renderInput={
                         (params) => <TextField {...params} onBlur={this.buttonAttr} name="load" label="Enter Loads" />
                     }

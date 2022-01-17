@@ -4,6 +4,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { requestJSONData } from './../../request/data';
 import { Load } from './Load';
 import './Truck.css';
+import Categories from './Categories';
 
 export class Truck extends Component {    
     constructor() {
@@ -87,7 +88,9 @@ export class Truck extends Component {
         return (
             <div id="main">
                 <Load />
-                <br /><br />
+                <br />
+                <Categories />
+                <br />
                 <Autocomplete
                     id="truck"
                     onSelect={(event) => this.handleTag(event, 'truck')}

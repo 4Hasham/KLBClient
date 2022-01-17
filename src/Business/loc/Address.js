@@ -12,9 +12,7 @@ export class Address extends Component {
 
     componentDidMount({ map, mapApi, address } = this.props) {
         const options = {
-            // restrict your search to a specific type of result
             types: ['address'],
-            // restrict your search to a specific country, or an array of countries
             componentRestrictions: { country: ['pk'] },
         };
         this.autoComplete = new mapApi.places.Autocomplete(
